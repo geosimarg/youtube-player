@@ -1,0 +1,22 @@
+{
+    "name": "geosimarg/yt-player",
+    "description": "A simple package to do \"anon-youtube\" player",
+    "type": "library",
+    "version": "v0.1",
+    "require": {
+        "athlon1600/youtube-downloader": "^3.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "GGdS\\YtPlayer\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Geosimar",
+            "email": "geosimar@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}
