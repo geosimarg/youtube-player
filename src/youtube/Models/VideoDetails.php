@@ -43,8 +43,16 @@ namespace GGdS\YtPlayer\Youtube\Models {
             return Utils::ArrayGet($this->videoDetails, 'viewCount');
         }
 
-        public function GetThumbnails(): array {
-            return Utils::ArrayGet($this->videoDetails, 'thumbnail');
+        public function GetThumbnails(int $index = NULL): array|string {
+            $thumbs = Utils::ArrayGet($this->videoDetails, 'thumbnail')['thumbnails'];
+            if ($index === NULL) {
+                $output = $thumbs;
+            } else if ($index === -1) {
+                $output = end($thumbs);
+            } else {
+                $output = $thumbs[$index];
+            }
+            return $output;
         }
 
         public function GetLengthSeconds(): int {

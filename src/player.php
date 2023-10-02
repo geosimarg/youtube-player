@@ -49,7 +49,7 @@ namespace GGdS\YtPlayer {
             $this->length = $this->videoInfo->GetLengthSeconds();
             $this->author = $this->videoInfo->GetAuthor();
 
-            // $this->poster = end($this->videoInfo['thumbnail']['thumbnails']);
+            $this->poster = $this->videoInfo->GetThumbnails(-1);
 
             if (!$this->quality) {
                 $this->videoUrl = $this->links->GetFirstCombinedFormat()->url;
@@ -70,7 +70,7 @@ namespace GGdS\YtPlayer {
                 preload="auto"
                 width="' . $this->videoWidth . '"
                 height="' . $this->videoHeight . '"
-                poster="' . $this->videoUrl . '"
+                poster="' . $this->poster['url'] . '"
                 controls
                 controlsList="nodownload"
                 data-setup=\'{}\'
