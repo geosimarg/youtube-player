@@ -57,8 +57,9 @@ $p = new Player([
             ?>
         </div>
         <div id="video-decription">
-            <strong id="video-title"><?php echo $p->title; ?></strong><br>
+            <strong id="video-title"><?php echo $p->title; ?></strong> (<?php echo $p->TimeFormated();?>)<br>
             Views: <small><?php echo $p->views;?></small><br>
+            Author: <small><?php echo $p->author;?></small><br>
             <?php echo $p->description;?>
         </div>
         <script>

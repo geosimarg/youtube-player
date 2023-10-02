@@ -1,7 +1,7 @@
 <?php
 namespace GGdS\YtPlayer {
-    use YouTube\YouTubeDownloader;
-    use YouTube\Exception\YouTubeException;
+    use GGdS\YtPlayer\Youtube\YouTubeDownloader;
+    use GGdS\YtPlayer\Youtube\Exception\YouTubeException;
 
     class Player {
         private $ytLink;
@@ -14,6 +14,7 @@ namespace GGdS\YtPlayer {
         private $videoMime = 'video/mp4';
         public $poster = '';
         public $title = '';
+        public $author = '';
         public $description = '';
         public $quality = NULL;
         public $qualityLabel = '';
@@ -36,20 +37,23 @@ namespace GGdS\YtPlayer {
 
         public function Player() {
             $this->youtube = new YouTubeDownloader();
-            $this->links = $this->youtube->getDownloadLinks($this->ytLink);
+            $this->links = $this->youtube->GetDownloadLinks($this->ytLink);
 
-            $this->formats = $this->links->getVideoFormats();
-            $this->videoInfo = $this->links->getInfo();
-            $this->description = $this->videoInfo->getShortDescription();
-            $this->views = $this->videoInfo->getViewCount();
-            $this->keywords = $this->videoInfo->getKeywords();
-            $this->title = $this->videoInfo->getTitle();
+            $this->formats = $this->links->GetVideoFormats();
+            $this->videoInfo = $this->links->GetInfo();
+            $this->description = $this->videoInfo->GetShortDescription();
+            $this->views = $this->videoInfo->GetViewCount();
+            $this->keywords = $this->videoInfo->GetKeywords();
+            $this->title = $this->videoInfo->GetTitle();
+            // var_dump($this->videoInfo); exit();
+            $this->length = $this->videoInfo->GetLengthSeconds();
+            $this->author = $this->videoInfo->GetAuthor();
 
             // $this->poster = end($this->videoInfo['thumbnail']['thumbnails']);
 
             if (!$this->quality) {
-                $this->videoUrl = $this->links->getFirstCombinedFormat()->url;
-                $this->qualityLabel = $this->links->getFirstCombinedFormat()->qualityLabel;
+                $this->videoUrl = $this->links->GetFirstCombinedFormat()->url;
+                $this->qualityLabel = $this->links->GetFirstCombinedFormat()->qualityLabel;
             } else {
                 foreach($this->formats as $video) {
                     if (base64_encode($video->mimeType) == $this->quality) {
@@ -83,11 +87,11 @@ namespace GGdS\YtPlayer {
             $t = $this->length;
             return sprintf(
                 "%02d%s%02d%s%02d",
-                floor($t/3600),
+                floor($t / 3600),
                 $f,
-                ($t/60)%60,
+                intval(($t / 60)) % 60,
                 $f,
-                $t%60
+                $t % 60
             );
         }
     }
