@@ -2,7 +2,7 @@
     "name": "ggds/yt-player",
     "description": "A simple package to do \"anon-youtube\" player",
     "type": "library",
-    "version": "v1.0.0",
+    "version": "v1.1.0",
     "license": "MIT",
     "autoload": {
         "psr-4": {
